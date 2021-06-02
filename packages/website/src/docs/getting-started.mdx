@@ -82,37 +82,13 @@ Now, you can freely use Bumbag in your Gatsby app!
 
 In order to use Bumbag with [Next.js](https://nextjs.org/), you will firstly have to set your Next.js app for SSR with Bumbag.
 
-Firstly, you will need to install `bumbag-server`:
-
-```
-npm install bumbag-server
-```
-
 Open up your `_document.js` file, and add the following:
 
 ```jsx
 import Document, { Head, Html, Main, NextScript } from 'next/document'
-import { extractCritical } from 'bumbag-server'
 import { InitializeColorMode } from 'bumbag'
 
 export default class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx)
-    const styles = extractCritical(initialProps.html)
-    return {
-      ...initialProps,
-      styles: (
-        <>
-          {initialProps.styles}
-          <style
-            data-emotion-css={styles.ids.join(' ')}
-            dangerouslySetInnerHTML={{ __html: styles.css }}
-          />
-        </>
-      ),
-    }
-  }
-
   render() {
     return (
       <Html>
